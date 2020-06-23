@@ -1,9 +1,7 @@
-import express from 'express';
+import app from './app';
 
-const app = express();
+const { PORT } = process.env;
 
-app.get('/', (request, response) => {
-  return response.json({ message: 'Hello World' });
-});
-
-app.listen(3333, () => console.log('App listening on port 3333'));
+app.listen(PORT || 3333, () =>
+  console.log(`Server listening on port ${PORT || 3333}`)
+);
