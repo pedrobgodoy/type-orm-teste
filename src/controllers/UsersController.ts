@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-
-import { User } from '@models/User';
+import database from 'src/database';
+import { User } from 'src/entity/User';
 
 class UsersController {
   public async index(req: Request, res: Response): Promise<void> {
@@ -10,11 +10,16 @@ class UsersController {
     user.firstName = firstName;
     user.lastName = lastName;
     user.age = age;
-    const response = await user.save();
 
-    if (response) {
-      res.send({ status: 'sucesso', user });
-    }
+    database.connection.manager
+      .save(user)
+      .then((userResponse) => {
+        res.send({ userResponse });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.send({ status: 'error', message: 'Error creating user' });
+      });
   }
 }
 

@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
-import { createConnection } from 'typeorm';
 
+import database from './database';
 import routes from './routes.js';
 
 class App {
@@ -21,18 +21,8 @@ class App {
   }
 
   private database(): void {
-    const { DB_HOST, DB_PORT, DB_TIMEOUT } = process.env;
-
-    const I_DB_PORT: number = parseInt(DB_PORT, 10);
-    const I_DB_TIMEOUT: number = parseInt(DB_TIMEOUT, 10);
-
-    createConnection({
-      type: 'mariadb',
-      host: DB_HOST,
-      port: I_DB_PORT,
-      connectTimeout: I_DB_TIMEOUT,
-      acquireTimeout: I_DB_TIMEOUT,
-    }).catch(() => console.log('Erro DB'));
+    database.createConnection();
+    database.connect();
   }
 
   private routes(): void {

@@ -1,9 +1,9 @@
-import { User } from '@models/User';
+import { User } from 'src/entity/User';
 
 test('it should be ok', () => {
   const user = new User();
 
-  user.name = 'Pedro';
+  user.firstName = 'Pedro';
 
-  expect(user.name).toEqual('Pedro');
+  expect(user.firstName).toEqual('Pedro');
 });
