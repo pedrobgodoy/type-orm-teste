@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import database from 'src/database';
-import { User } from 'src/entity/User';
+import { User } from 'src/model/User';
+import { getConnection } from 'typeorm';
 
 class UsersController {
   public async index(req: Request, res: Response): Promise<void> {
@@ -11,7 +11,9 @@ class UsersController {
     user.lastName = lastName;
     user.age = age;
 
-    database.connection.manager
+    const connection = await getConnection();
+
+    connection.manager
       .save(user)
       .then((userResponse) => {
         res.send({ userResponse });
