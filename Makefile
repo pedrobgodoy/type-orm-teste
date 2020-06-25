@@ -1,8 +1,7 @@
 include .env
 
-dev:
-	docker-compose up -d
-	yarn dev
+db-test:
+	docker-compose -f docker-compose-db-test.yml up -d
 
 up:
 	docker-compose up -d
@@ -13,7 +12,7 @@ down:
 logs:
 	docker-compose logs -f
 
-.PHONY: dev
+.PHONY: db-test
 .PHONY: up
 .PHONY: down
 .PHONY: logs
