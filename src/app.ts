@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
+import { createConnection } from 'typeorm';
 
-import database from './database';
 import routes from './routes.js';
 
 class App {
@@ -21,8 +21,7 @@ class App {
   }
 
   private database(): void {
-    database.createConnection();
-    database.connect();
+    createConnection();
   }
 
   private routes(): void {
