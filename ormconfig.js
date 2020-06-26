@@ -1,24 +1,21 @@
-const dotenv = require('dotenv');
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import dotenv from 'dotenv';
 
-const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
+const envFile = process.env.NODE_ENV
+  ? `${__dirname}/.env.${process.env.NODE_ENV}`
+  : '.env';
 dotenv.config({ path: envFile });
 
-const { DB_CONNECTION, DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, DB_SYNC, DB_DROP } = process.env;
-
-const dbOptions = {
-  type: DB_CONNECTION,
-  host: DB_HOST,
-  port: DB_PORT,
-  database: DB_NAME,
-  username: DB_USER,
-  password: DB_PASS,
-  synchronize: DB_SYNC,
+module.exports = {
+  type:  process.env.DB_CONNECTION,
+  host:  process.env.DB_HOST,
+  port:  process.env.DB_PORT,
+  database:  process.env.DB_NAME,
+  username:  process.env.DB_USER,
+  password:  process.env.DB_PASS,
+  synchronize:  process.env.DB_SYNC,
   logging: false,
-  entities: ['src/model/**/*.ts'],
+  entities: ['src/app/model/**/*.ts'],
+  namingStrategy: new SnakeNamingStrategy(),
+  dropSchema: process.env.DB_DROP == "true"
 };
-
-if(DB_DROP == "true")
-  dbOptions.dropSchema = true;
-
-
-module.exports = dbOptions;

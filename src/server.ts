@@ -1,10 +1,16 @@
 import dotenv from 'dotenv';
 
-import app from './app';
+import App from './app/app';
 
-const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
+const envFile = process.env.NODE_ENV
+  ? `${__dirname}/.env.${process.env.NODE_ENV}`
+  : '.env';
 dotenv.config({ path: envFile });
 
-app.listen(process.env.PORT || 3333, () =>
-  console.log(`Server listening on port ${process.env.PORT || 3333}`)
-);
+const app = new App();
+
+app.startApp().then((server) => {
+  server.listen(process.env.PORT || 3333, () =>
+    console.log(`Server listening on port ${process.env.PORT || 3333}`)
+  );
+});

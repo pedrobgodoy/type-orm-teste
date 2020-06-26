@@ -10,7 +10,7 @@ module.exports = {
   // automock: false,
 
   // Stop running tests after `n` failures
-  // bail: 0,
+  bail: 0,
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "/tmp/jest_rs",
@@ -19,13 +19,15 @@ module.exports = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  // collectCoverage: false,
+  collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
+  collectCoverageFrom: [
+    'src/app/**'
+  ],
 
   // The directory where Jest should output its coverage files
-  // coverageDirectory: undefined,
+  coverageDirectory: 'src/__test__/coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -169,7 +171,9 @@ module.exports = {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  // transform: undefined,
+  transform: {
+    "^.+\\.(ts|tsx)$": "ts-jest",
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
